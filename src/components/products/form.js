@@ -64,8 +64,8 @@ class App extends React.Component {
         </select> <br />
         Type:
         <select onChange={ (e) => this.updateState({type: e.target.value}) } value={ this.state.type} >
-          <option value="250 mL">Plastic</option>
-          <option value="500 mL">Glass</option>
+          <option value="Plastic">Plastic</option>
+          <option value="Glass">Glass</option>
         </select> bottle<br />
         Price: <input placeholder="e.g. 5000" onChange={ (e) => this.updateState({price: parseFloat(e.target.value)})} /> so'm <br />
         <button type="submit">Submit</button>
