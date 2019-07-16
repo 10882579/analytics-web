@@ -20,12 +20,15 @@ class App extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    const { addProduct, toggleForm } = this.props;
+    const { addProduct, toggleForm, mode } = this.props;
     const { name, size, type, price } = this.state;
+
+    const API_URI = mode.SERVER == "production" ? mode.API_URI : "http://localhost:8000";
+
     if(name && size && type && price > 0){
       axios({
         method: 'POST',
-        url: 'http://localhost:8000/products/add-new/',
+        url: `${API_URI}/products/add-new/`,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

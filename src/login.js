@@ -11,13 +11,15 @@ class App extends Component {
   }
 
   componentWillMount = async () => {
-    const { updateAccount, history } = this.props;
+    const { updateAccount, history, mode } = this.props;
     const token = cookie.load('token');
+
+    const API_URI = mode.SERVER == "production" ? mode.API_URI : "http://localhost:8000";
     
     if(token){
       await axios({
         method: 'GET',
-        url: 'http://localhost:8000/check-session/',
+        url: `${API_URI}/check-session/`,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -47,11 +49,14 @@ class App extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
-    const { updateAccount, history } = this.props;
+    const { updateAccount, history, mode } = this.props;
+
+    const API_URI = mode.SERVER == "production" ? mode.API_URI : "http://localhost:8000";
+
     if (email.length > 0 && password.length > 0){
       axios({
         method: 'POST',
-        url: 'http://localhost:8000/login/',
+        url: `${API_URI}/login/`,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -88,7 +93,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-   
+    mode: state.mode
   }
 }
 

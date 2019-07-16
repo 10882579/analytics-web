@@ -14,11 +14,13 @@ class App extends Component {
 
   componentWillMount = () => {
     
-    const { updateProducts } = this.props; 
+    const { updateProducts, mode } = this.props;
+
+    const API_URI = mode.SERVER == "production" ? mode.API_URI : "http://localhost:8000";
     
     axios({
       method: 'GET',
-      url: 'http://localhost:8000/products/list/',
+      url: `${API_URI}/products/list/`,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -41,9 +43,14 @@ class App extends Component {
   }
 
   deleteProduct = (id) => {
+
+    const { mode } = this.props;
+
+    const API_URI = mode.SERVER == "production" ? mode.API_URI : "http://localhost:8000";
+    
     axios({
       method: 'POST',
-      url: `http://localhost:8000/products/${id}/delete/`,
+      url: `${API_URI}/products/${id}/delete/`,
       headers: {
         'Accept': 'application/json',
         'X-Auth-Token': cookie.load('token'),
@@ -102,6 +109,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     products: state.home.products,
+    mode: state.mode
   }
 }
 

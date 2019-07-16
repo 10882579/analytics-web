@@ -3,11 +3,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 import home from "./reducers/home";
 import account from "./reducers/account";
+import mode from "./reducers/mode";
 
 const reducer = combineReducers(
   {
     home: home,
-    account: account
+    account: account,
+    mode: mode
   }
 )
 
