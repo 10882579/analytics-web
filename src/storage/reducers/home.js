@@ -1,5 +1,6 @@
 const initialState  = {
-  products: []
+  products: [],
+  contractors: [],
 }
 
 
@@ -30,6 +31,18 @@ const reducer = (state = initialState, action) => {
         products: productList
       }
       break;
+    case 'UPDATE_CONTRACTORS':
+        state = {
+          ...state,
+          contractors: action.payload
+        }
+        break;
+    case 'ADD_CONTRACTOR':
+        state = {
+          ...state,
+          contractors: [...state.contractors, action.payload]
+        }
+        break;
     case 'LOG_OUT':
       state = initialState
       break;

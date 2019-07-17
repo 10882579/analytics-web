@@ -5,7 +5,7 @@ import cookie from 'react-cookies';
 
 import Products from './components/products/index';
 import Contractors from './components/contractors/index';
-import Login from './login';
+import Login from './components/account/login';
 
 class App extends React.Component {
   
