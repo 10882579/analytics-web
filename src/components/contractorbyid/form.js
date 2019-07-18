@@ -5,8 +5,8 @@ import axios from 'axios';
 class App extends React.Component {
 
   state = {
-    name: "",
-    location: ""
+    product: "",
+    amount: 0
   }
 
   updateState = (obj) => {
@@ -17,26 +17,30 @@ class App extends React.Component {
  
   handleSubmit = (e) => {
     e.preventDefault();
+    
+    const { toggleForm, mode, updateContractorSales, location } = this.props;
 
-    const { addContractor, toggleForm, mode } = this.props;
-    const { name, location } = this.state;
+    const { product, amount } = this.state;
 
     const API_URI = mode.SERVER == "production" ? mode.API_URI : "http://localhost:8000";
 
-    if(name && location){
+    if(product && amount > 0){
       axios({
         method: 'POST',
-        url: `${API_URI}/contractors/add-new/`,
+        url: `${API_URI}/sales/add-new/`,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
           'X-Auth-Token': cookie.load('token'),
         },
-        data: this.state
+        data: {
+          customer: location.state._id,
+          ...this.state
+        }
       })
       .then((res) => {
         if(res.status == 200) {
-          addContractor(res.data);
+          updateContractorSales(res.data);
           toggleForm();
         }
       })
@@ -48,11 +52,26 @@ class App extends React.Component {
 
 
   render(){
+
+    const { products } = this.props;
+
     return (
       <form onSubmit={ (e) => this.handleSubmit(e) }>
-        <br /><br /><br />
-        Name: <input placeholder="name" onChange={ (e) => this.updateState({name: e.target.value}) } /> <br />
-        Location: <input placeholder="location" onChange={ (e) => this.updateState({location: e.target.value}) } /> <br />
+
+        Product:
+        <select value={this.state.product} onChange={ (e) => this.updateState({product: e.target.value}) }>
+          <option></option>
+          {
+            products.map( (product) => (
+              <option key={product._id} value={product._id}>
+                {product.name} {product.size} {product.type} bottle
+              </option>
+            ))
+          }
+        </select> <br />
+        Amount: <input type="text" value={this.state.amount} onChange={ (e) => this.updateState({amount: e.target.value}) }/>
+        
+        <br />
         <button type="submit">Submit</button>
         <button onClick={ this.props.toggleForm }>Cancel</button>
       </form>

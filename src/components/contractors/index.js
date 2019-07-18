@@ -43,6 +43,11 @@ class App extends Component {
     this.setState({renderForm: !this.state.renderForm})
   }
 
+  handleRedirect = (contractor) => {
+    const { history } = this.props;
+    history.push(`/contractors/${contractor._id}/view/`, contractor);
+  }
+
   render() {
     const { contractors } = this.props;
 
@@ -62,7 +67,7 @@ class App extends Component {
                 <tr key={contractor._id}>
                   <td>{contractor.name}</td>
                   <td>{contractor.location}</td>
-                  <td><button>View</button></td>
+                  <td><button onClick={ () => this.handleRedirect(contractor) }>View</button></td>
                 </tr>
               ))
             }

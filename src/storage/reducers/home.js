@@ -32,17 +32,17 @@ const reducer = (state = initialState, action) => {
       }
       break;
     case 'UPDATE_CONTRACTORS':
-        state = {
-          ...state,
-          contractors: action.payload
-        }
-        break;
+      state = {
+        ...state,
+        contractors: action.payload
+      }
+      break;
     case 'ADD_CONTRACTOR':
-        state = {
-          ...state,
-          contractors: [...state.contractors, action.payload]
-        }
-        break;
+      state = {
+        ...state,
+        contractors: [...state.contractors, action.payload]
+      }
+      break;
     case 'LOG_OUT':
       state = initialState
       break;

@@ -5,6 +5,7 @@ import cookie from 'react-cookies';
 
 import Products from './components/products/index';
 import Contractors from './components/contractors/index';
+import Contractor from './components/contractorbyid/index';
 import Login from './components/account/login';
 
 class App extends React.Component {
@@ -48,10 +49,7 @@ class App extends React.Component {
               <Redirect to="/login/"/>
             ) : <Contractors />
           )} />
-          <Route path='/logout/' exact component={ () => {
-            console.log(this.props)
-            return <Redirect to="/login/"/>
-          }} />
+          <Route path='/contractors/:id([a-zA-Z0-9.+_-]+)/view/' exact component={Contractor}/>
           <Route component={  () => <div>404 Does not exists</div> } />
         </Switch>
       </Router>
