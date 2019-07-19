@@ -6,7 +6,9 @@ class App extends React.Component {
 
   state = {
     name: "",
-    location: ""
+    location: "",
+    email: "",
+    phoneNumber: ""
   }
 
   updateState = (obj) => {
@@ -53,6 +55,8 @@ class App extends React.Component {
         <br /><br /><br />
         Name: <input placeholder="name" onChange={ (e) => this.updateState({name: e.target.value}) } /> <br />
         Location: <input placeholder="location" onChange={ (e) => this.updateState({location: e.target.value}) } /> <br />
+        Phone Number: <input placeholder="phone number" onChange={ (e) => this.updateState({phoneNumber: e.target.value}) } /> <br />
+        Email: <input placeholder="email" onChange={ (e) => this.updateState({email: e.target.value}) } /> <br />
         <button type="submit">Submit</button>
         <button onClick={ this.props.toggleForm }>Cancel</button>
       </form>

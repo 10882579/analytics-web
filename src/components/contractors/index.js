@@ -60,6 +60,8 @@ class App extends Component {
             <tr>
               <th>Organization/Firm</th>
               <th>Location</th>
+              <th>Email</th>
+              <th>Phone number</th>
               <th></th>
             </tr>
             {
@@ -67,6 +69,8 @@ class App extends Component {
                 <tr key={contractor._id}>
                   <td>{contractor.name}</td>
                   <td>{contractor.location}</td>
+                  <td>{contractor.email}</td>
+                  <td>+998 {contractor.phoneNumber}</td>
                   <td><button onClick={ () => this.handleRedirect(contractor) }>View</button></td>
                 </tr>
               ))
