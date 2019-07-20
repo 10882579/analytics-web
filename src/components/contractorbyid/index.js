@@ -45,6 +45,12 @@ class App extends React.Component {
     this.setState({renderForm: !this.state.renderForm})
   }
 
+  dateTimeFormat = (d) => {
+    const date = new Date(d);
+    const months = ["Jan", "Fab", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  }
+
   render(){
     const { location, sales } = this.props;
     
@@ -62,20 +68,20 @@ class App extends React.Component {
                 <th>Price</th>
                 <th>Order amount</th>
                 <th>Total</th>
-                <th>Delivered</th>
+                <th>Order received</th>
+                <th>Deliver By</th>
               </tr>
               {
-                sales.map( (product) => (
-                  <tr key={product._id}>
-                    <td> JZ {product.name}</td>
-                    <td>{product.size}</td>
-                    <td>{product.type} bottle</td>
-                    <td>{product.price} so'm</td>
-                    <td>{product.amount}</td>
-                    <td>{product.amount * product.price} so'm</td>
-                    <td>
-                      <input type="checkbox" checked={product.delivered ? "checked" : null } disabled/>
-                    </td>
+                sales.map( (sale) => (
+                  <tr key={sale._id}>
+                    <td> JZ {sale.product.name}</td>
+                    <td>{sale.product.size}</td>
+                    <td>{sale.product.type} bottle</td>
+                    <td>{sale.product.price} so'm</td>
+                    <td>{sale.amount}</td>
+                    <td>{sale.amount * sale.product.price} so'm</td>
+                    <td>{this.dateTimeFormat(sale.createdAt)}</td>
+                    <th>{this.dateTimeFormat(sale.deliverBy)}</th>
                   </tr>
                 ))
               }
@@ -106,6 +112,12 @@ const mapDispatchToProps = (dispatch) => {
     updateContractorSales: (data) => {
       dispatch({
         type: "UPDATE_CONTRACTOR_SALES",
+        payload: data
+      })
+    },
+    addNewSale: (data) => {
+      dispatch({
+        type: "ADD_NEW_SALE",
         payload: data
       })
     }

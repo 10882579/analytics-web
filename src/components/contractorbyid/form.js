@@ -6,6 +6,7 @@ class App extends React.Component {
 
   state = {
     product: "",
+    deliverBy: "",
     amount: 0
   }
 
@@ -18,7 +19,7 @@ class App extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     
-    const { toggleForm, mode, updateContractorSales, location } = this.props;
+    const { toggleForm, mode, addNewSale, location } = this.props;
 
     const { product, amount } = this.state;
 
@@ -40,7 +41,7 @@ class App extends React.Component {
       })
       .then((res) => {
         if(res.status == 200) {
-          updateContractorSales(res.data);
+          addNewSale(res.data);
           toggleForm();
         }
       })
@@ -69,8 +70,8 @@ class App extends React.Component {
             ))
           }
         </select> <br />
-        Amount: <input type="text" value={this.state.amount} onChange={ (e) => this.updateState({amount: e.target.value}) }/>
-        
+        Amount: <input type="text" value={this.state.amount} onChange={ (e) => this.updateState({amount: e.target.value}) }/><br />
+        Deliver by: <input type="date" value={this.state.date} onChange={ (e) => this.updateState({deliverBy: e.target.value}) }/><br />
         <br />
         <button type="submit">Submit</button>
         <button onClick={ this.props.toggleForm }>Cancel</button>

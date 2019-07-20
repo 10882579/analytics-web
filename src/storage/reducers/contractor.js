@@ -11,6 +11,11 @@ const reducer = (state = initialState, action) => {
         sales: action.payload
       }
       break;
+    case "ADD_NEW_SALE":
+      state = {
+        sales: [...state.sales, action.payload]
+      }
+      break;
     case 'LOG_OUT':
       state = initialState
       break;
