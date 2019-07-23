@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router";
 import { connect } from 'react-redux';
 import cookie from 'react-cookies';
 import axios from 'axios';
@@ -111,4 +110,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
+export default connect(mapStateToProps, mapDispatchToProps)(App);

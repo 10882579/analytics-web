@@ -11,7 +11,8 @@ class App extends Component {
   }
 
   componentWillMount = async () => {
-    const { updateAccount, history, mode } = this.props;
+    const { updateAccount, history, mode, location } = this.props;
+    const { from } = location.state || { from: { pathname: "/products/"} };
     const token = cookie.load('token');
 
     const API_URI = mode.SERVER == "production" ? mode.API_URI : "http://localhost:8000";
@@ -29,7 +30,7 @@ class App extends Component {
       .then((res) => {
         if(res.status == 200) {
           updateAccount({loggedIn: true});
-          history.push("/products/");
+          history.push(from.pathname);
         }
       })
       .catch((err) => {
@@ -49,7 +50,8 @@ class App extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
-    const { updateAccount, history, mode } = this.props;
+    const { updateAccount, history, mode, location } = this.props;
+    const { from } = location.state || { from: { pathname: "/products/"} };
 
     const API_URI = mode.SERVER == "production" ? mode.API_URI : "http://localhost:8000";
 
@@ -68,7 +70,7 @@ class App extends Component {
           cookie.save("token", res.data.token, {path: '/'});
           updateAccount({...res.data, loggedIn: true});
           this.setState({email: "", password: ""});
-          history.push("/products/");
+          history.push(from.pathname);
         }
       })
       .catch((err) => {
