@@ -1,6 +1,5 @@
 import React from 'react';
-import cookie from 'react-cookies';
-import axios from 'axios';
+import requests from './requests';
 
 class App extends React.Component {
 
@@ -18,36 +17,10 @@ class App extends React.Component {
  
   handleSubmit = (e) => {
     e.preventDefault();
-    
-    const { toggleForm, mode, addNewSale, location } = this.props;
 
     const { product, amount } = this.state;
-
-    const API_URI = mode.SERVER == "production" ? mode.API_URI : "http://localhost:8000";
-
     if(product && amount > 0){
-      axios({
-        method: 'POST',
-        url: `${API_URI}/sales/add-new/`,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-Auth-Token': cookie.load('token'),
-        },
-        data: {
-          customer: location.state._id,
-          ...this.state
-        }
-      })
-      .then((res) => {
-        if(res.status == 200) {
-          addNewSale(res.data);
-          toggleForm();
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      })
+      requests.addNewSale(this.props, this.state);
     }
   }
 
